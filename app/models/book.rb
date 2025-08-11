@@ -7,7 +7,8 @@ class Book < ApplicationRecord
     validates :author, presence: true
     validates :read, inclusion: { in: [true, false] }
 
-    has_one_attached :image
+
+    has_one_attached :cover_image
 
     
   def cover_image_url
