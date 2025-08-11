@@ -7,11 +7,17 @@ Rails.application.routes.draw do
   # get "up" => "rails/health#show", as: :rails_health_check
   # resources :books
   post '/login', to: 'sessions#create'
-  resources :users, only: [:create]
   resources :books
+  resources :users, only: [:create]
+ 
 
   get '/my_books', to: 'books#my_books'
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :users do
+    post 'upload_image', to: 'users#upload_image'
+  end
+
 end

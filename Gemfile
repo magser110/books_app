@@ -38,6 +38,7 @@ gem "thruster", require: false
 
 group :production do
   gem 'pg'
+  gem 'cloudinary'
 end
 
 group :development, :test do
