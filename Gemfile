@@ -67,3 +67,5 @@ end
 
  gem 'jwt'
 
+ gem 'rack-attack'
+
