@@ -69,3 +69,5 @@ end
 
  gem 'rack-attack'
 
+ gem 'pusher'
+

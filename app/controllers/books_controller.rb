@@ -56,5 +56,15 @@ class BooksController < ApplicationController
     render json: BooksBlueprint.render(books, view: :normal), status: :ok
   end
 
+  def cover_image
+    book = Book.find(book_params[:book_id])
+
+    if book.cover_image.attach(params[:cover_image])
+      render json: { message: "Image upload"}, status: :ok
+
+    else
+      render json: { message: "Image upload failed"}, status: :unprocessable_entity
+    end
+  end
 
 end
