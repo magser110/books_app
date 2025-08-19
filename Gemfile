@@ -71,3 +71,7 @@ end
 
  gem 'pusher'
 
+ gem 'sidekiq'
+
+gem 'sidekiq-scheduler'
+
