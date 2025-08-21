@@ -4,8 +4,10 @@ class BooksController < ApplicationController
 
   # GET /books
   def index
-    @books = Book.all
-    render json: BooksBlueprint.render(@books, view: :normal)
+    result = BookService::Base.filter(params)
+    if result.success?
+      render_success(payload: BooksBlueprint.render_as_hash(result.payload, view: :normal, current_user: @current_user), status: :ok)
+    end
   end
 
   # GET /books/:id
@@ -15,11 +17,13 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
-    @book = @current_user.books.new(book_params)
-    if @book.save
-      render json: BooksBlueprint.render(@book, view: :normal), status: :created
+    result = BookService::Base.create_book(book_params)
+    if result.success?
+      render_success(payload: BooksBlueprint.render_as_hash(result.payload, view: :normal), status: :created)
+     
     else
-      render json: @book.errors, status: :unprocessable_entity
+      render_error( result.errors, status: :unprocessable_entity)
+    
     end
   end
 
@@ -48,7 +52,7 @@ class BooksController < ApplicationController
   end
 
   def book_params
-    params.permit(:title, :author, :read, :cover_image)
+    params.permit(:title, :author, :read, :cover_image, page, per_page)
   end
 
   def my_books

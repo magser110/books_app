@@ -10,5 +10,20 @@ class ApplicationController < ActionController::API
     rescue JWT::DecodeError
         render json: {errors: 'Unauthorized'}, status: :unauthorized
     end
+
+    def render_error(errors:, status: :internal_server_error)
+      render json: {
+        success: false,
+        errors: status, 
+        status: status
+      }, status: status
+    end
+
+    def render_success(payload:, status: :ok)
+      render json: {
+        success: true,
+        payload: payload
+      }, status: status
+    end
   end
 end
